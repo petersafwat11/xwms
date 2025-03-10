@@ -1,0 +1,255 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #6a11cb, #2575fc);
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.expanded {
+  width: 250px;
+}
+
+.collapsed {
+  width: 70px;
+}
+
+.navbar_header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.toggle_btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.toggle_btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav_items {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-grow: 1;
+  padding: 1rem 0;
+}
+
+.nav_item {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.nav_item_header {
+  display: flex;
+  align-items: center;
+}
+
+.nav_link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav_link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+.nav_link:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: white;
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.nav_link:hover:before {
+  transform: scaleY(1);
+}
+
+.icon {
+  font-size: 1.2rem;
+  min-width: 1.5rem;
+}
+
+.nav_title {
+  margin-left: 0.75rem;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.arrow {
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+
+.arrow_active {
+  transform: rotate(90deg);
+}
+
+.nav_sub_items {
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  animation: slideDown 0.3s ease-in-out;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav_sub_items:before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav_sub_link {
+  padding: 0.6rem 1rem 0.6rem 1.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  position: relative;
+  margin: 0.15rem 0.5rem;
+}
+
+.nav_sub_link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(5px);
+}
+
+.nav_sub_link:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: background 0.3s ease;
+}
+
+.nav_sub_link:hover:before {
+  background: white;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    width: 70px; /* Start collapsed on mobile */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    z-index: 1001;
+  }
+  
+  .expanded {
+    width: 250px;
+  }
+  
+  .collapsed {
+    width: 70px;
+  }
+  
+  .nav_items {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+  
+  .nav_item {
+    margin-bottom: 0.5rem;
+  }
+  
+  .nav_sub_items {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  
+  /* Add overlay when navbar is expanded on mobile */
+  .expanded:after {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 250px;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+}
