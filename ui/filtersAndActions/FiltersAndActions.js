@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import classes from "./filtersAndActions.module.css";
+import classes from "./filters.module.css";
 import DateInput from "../inputs/dateInput/DateInput";
 
 const FiltersAndActions = () => {
@@ -103,7 +103,6 @@ const FiltersAndActions = () => {
         <option value="pending">Pending</option>
         <option value="completed">Completed</option>
       </select>
-      
       <button className={`${classes.action_button} ${classes.convert}`}>
         Convert DD
       </button>
@@ -115,6 +114,7 @@ const FiltersAndActions = () => {
       <button className={`${classes.action_button} ${classes.import_csv}`}>
         Import CSV
       </button>
+
     </div>
   );
 };
