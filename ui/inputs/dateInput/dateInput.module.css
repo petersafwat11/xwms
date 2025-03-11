@@ -1,0 +1,7 @@
+.date_input{
+    flex-grow: 1;
+    height: 43px;
+}
+.date_input > div{
+    padding: .25rem .5rem;
+}
