@@ -1,23 +1,4 @@
-:root {
-  --primary: #6a11cb;
-  --secondary: #2575fc;
-  --primary-light: rgba(106, 17, 203, 0.1);
-  --secondary-light: rgba(37, 117, 252, 0.1);
-  --text-dark: #333;
-  --text-light: #666;
-  --border-color: #e0e0e0;
-  --white: #fff;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
-  
-  /* Button colors - now using a more cohesive blue palette */
-  --btn-primary: #3a86ff;
-  --btn-primary-hover: #2574f5;
-  --btn-secondary: #4361ee;
-  --btn-secondary-hover: #3a56e4;
-  --btn-tertiary: #4895ef;
-  --btn-tertiary-hover: #3b87e2;
-}
+/* Filters and Actions Component Styles */
 
 .filters_and_actions {
   display: grid;
