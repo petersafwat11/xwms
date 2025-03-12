@@ -6,8 +6,7 @@
   box-shadow: var(--shadow);
   padding: 2.5rem;
   width: 100%;
-  /* width: 100%;
-  max-width: 450px; */
+  max-width: 450px;
   margin: 0 auto;
   transition: var(--transition);
 }
@@ -127,6 +126,7 @@
 }
 
 .loginButton {
+  /* background-color: #2d82ec; */
   background: linear-gradient(to right, var(--primary), var(--secondary));
   color: var(--white);
   border: none;

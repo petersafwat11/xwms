@@ -12,16 +12,16 @@
 .content {
   display: flex;
   width: 100vw;
-  height: 100vh;
-  /* max-width: 1200px;
-  min-height: 600px; */
-  /* border-radius: 16px; */
+  /* height: 100vh; */
+  max-width: 1200px;
+  min-height: 600px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .brandSection {
-  flex: 60%;
+  flex: 50%;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   position: relative;
   display: flex;
@@ -38,7 +38,7 @@
 }
 
 .formSection {
-  flex: 40%;
+  flex: 50%;
   background-color: var(--white);
   padding: 3rem;
   display: flex;
