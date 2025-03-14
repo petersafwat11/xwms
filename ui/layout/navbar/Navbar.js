@@ -55,7 +55,7 @@ const Navbar = () => {
   };
 
   const handleNavItemClick = (item, index) => {
-    if (item.path===undefined && item?.children?.length > 0) {
+    if (item.path === undefined && item?.children?.length > 0) {
       toggleSubmenu(index);
     } else {
       expandNavbar();

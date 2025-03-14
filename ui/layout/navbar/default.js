@@ -44,20 +44,16 @@ const navDefault = {
       active: false,
       children: [
         {
-          title: "Goods In",
-          path: "/goods-in",
+          title: "In Order",
+          path: "/in-order",
         },
         {
-          title: "Goods Out",
-          path: "/goods-out",
+          title: "Out Order",
+          path: "/out-order",
         },
         {
           title: "Summary",
           path: "/summary",
-        },
-        {
-          title: "Adjustment",
-          path: "/adjustment",
         },
       ],
     },
@@ -66,29 +62,13 @@ const navDefault = {
       active: false,
       children: [
         {
-          title: "In And Out",
-          path: "/in-and-out",
-        },
-        {
-          title: "Activity",
-          path: "/activity",
-        },
-        {
           title: "Stock Balance",
           path: "/stock-balance",
-        },
-        {
-          title: "Pick List",
-          path: "/pick-list",
-        },
-        {
-          title: "Pack List",
-          path: "/pack-list",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Config",
       active: false,
       children: [
         {
@@ -110,13 +90,28 @@ const navDefault = {
       ],
     },
     {
-      title: "Config",
-      path: "/config",
+      title: "Settings",
+      active: false,
+      children: [
+        {
+          title: "Profile",
+          path: "/profile",
+        },
+        {
+          title: "Feedback",
+          path: "/feedback",
+        },
+        {
+          title: "Logs",
+          path: "/logs",
+        },
+      ],
     },
-    {
-      title: "Billing",
-      path: "/billing",
-    },
+
+    // {
+    //   title: "Billing",
+    //   path: "/billing",
+    // },
   ],
 };
 export default navDefault;

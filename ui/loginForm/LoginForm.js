@@ -34,7 +34,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Simple validation
     if (!formData.email || !formData.password) {
       setError("Please fill in all fields");
@@ -51,17 +51,16 @@ const LoginForm = () => {
     try {
       setIsLoading(true);
       setError("");
-      
+
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // Here you would normally make an API call to authenticate
       // For demo purposes, we'll just simulate success
       console.log("Login successful", formData);
-      
+
       // Redirect to dashboard or home page after successful login
       // window.location.href = "/";
-      
     } catch (err) {
       setError("Login failed. Please check your credentials and try again.");
       console.error("Login error:", err);
