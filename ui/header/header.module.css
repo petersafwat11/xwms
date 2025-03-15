@@ -1,0 +1,137 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: white;
+  border-bottom: 0.1rem solid #e9ecef;
+  height: 6.4rem;
+  margin:1rem 10rem 1rem 25rem;
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.6rem;
+  color: #2c3e50;
+}
+
+.header_center {
+  flex: 1;
+  text-align: center;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.user_dropdown {
+  position: relative;
+}
+
+.user_button {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #333;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  transition: background-color 0.2s;
+}
+.user_info{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.user_button:hover {
+  background-color: #f5f7fa;
+}
+
+.user_avatar {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user_icon {
+  font-size: 3.2rem;
+  color: #6c757d;
+}
+
+.user_name {
+  font-weight: 500;
+}
+
+.chevron {
+  font-size: 1.2rem;
+  color: #6c757d;
+  transition: transform 0.2s;
+}
+
+.chevron_up {
+  transform: rotate(180deg);
+}
+
+.dropdown_menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 18rem;
+  margin-top: 0.5rem;
+  background-color: white;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dropdown_item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.75rem 1rem;
+  color: #333;
+  font-size: 1.4rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: none;
+  width: 100%;
+  text-align: left;
+  background: none;
+}
+
+.dropdown_item:hover {
+  background-color: #f5f7fa;
+  color: #4a6cf7;
+}
+
+.dropdown_icon {
+  font-size: 1.4rem;
+  color: #6c757d;
+}
+
+.dropdown_item:hover .dropdown_icon {
+  color: #4a6cf7;
+}
+
+.logout_button {
+  border-top: 0.1rem solid #e9ecef;
+  color: #dc3545;
+}
+
+.logout_button:hover {
+  background-color: #feecec;
+}
+
+.logout_button .dropdown_icon {
+  color: #dc3545;
+}

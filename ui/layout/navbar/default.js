@@ -5,7 +5,7 @@ const navDefault = {
       title: "Dashboard",
       path: "/",
     },
-    {
+    {      
       title: "Scanning",
       active: false,
       children: [

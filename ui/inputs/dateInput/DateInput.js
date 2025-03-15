@@ -1,8 +1,9 @@
+"use client";
 import React, { forwardRef, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import classes from "./dateInput.module.css";
+import styles from "./dateInput.module.css";
 import { FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const DateInput = ({
@@ -27,7 +28,7 @@ const DateInput = ({
     // Create portal container if it doesn't exist
     if (!portalContainerRef.current) {
       const container = document.createElement('div');
-      container.className = classes.date_picker_portal;
+      container.className = styles.date_picker_portal;
       document.body.appendChild(container);
       portalContainerRef.current = container;
     }
@@ -138,25 +139,25 @@ const DateInput = ({
 
   // Custom input component for date range field
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className={classes.date_range_input_container} ref={inputRef}>
+    <div className={styles.date_range_input_container} ref={inputRef}>
       {label && (
-        <label className={classes.date_label}>
-          {label} {required && <span className={classes.required}>*</span>}
+        <label className={styles.date_label}>
+          {label} {required && <span className={styles.required}>*</span>}
         </label>
       )}
       <div 
-        className={classes.date_input_wrapper} 
+        className={styles.date_input_wrapper} 
         onClick={toggleCalendar}
       >
         <input
-          className={classes.date_input_field}
+          className={styles.date_input_field}
           ref={ref}
           value={formatDateRange()}
           placeholder="Select date range"
           readOnly
           required={required}
         />
-        <FaCalendarAlt className={classes.calendar_icon} />
+        <FaCalendarAlt className={styles.calendar_icon} />
       </div>
     </div>
   ));
@@ -175,9 +176,9 @@ const DateInput = ({
     nextMonthButtonDisabled,
   }) => {
     return (
-      <div className={classes.custom_header}>
+      <div className={styles.custom_header}>
         <button
-          className={classes.nav_button}
+          className={styles.nav_button}
           onClick={decreaseMonth}
           disabled={prevMonthButtonDisabled}
           aria-label="Previous month"
@@ -185,9 +186,9 @@ const DateInput = ({
           <FaChevronLeft />
         </button>
 
-        <div className={classes.selects_container}>
+        <div className={styles.selects_container}>
           <select
-            className={classes.month_select}
+            className={styles.month_select}
             value={date.getMonth()}
             onChange={(e) => {
               const newMonth = parseInt(e.target.value, 10);
@@ -208,7 +209,7 @@ const DateInput = ({
           </select>
 
           <select
-            className={classes.year_select}
+            className={styles.year_select}
             value={date.getFullYear()}
             onChange={(e) => {
               const newYear = parseInt(e.target.value, 10);
@@ -230,7 +231,7 @@ const DateInput = ({
         </div>
 
         <button
-          className={classes.nav_button}
+          className={styles.nav_button}
           onClick={increaseMonth}
           disabled={nextMonthButtonDisabled}
           aria-label="Next month"
@@ -257,7 +258,7 @@ const DateInput = ({
       
       {isOpen && portalContainerRef.current && createPortal(
         <div 
-          className={classes.calendar_container}
+          className={styles.calendar_container}
           ref={calendarContainerRef}
           style={{
             position: 'absolute',
@@ -274,7 +275,7 @@ const DateInput = ({
             selectsRange
             inline
             dateFormat="MMM d, yyyy"
-            calendarClassName={classes.calendar}
+            calendarClassName={styles.calendar}
             renderCustomHeader={renderCustomHeader}
             onMonthChange={handleMonthChange}
             onClickOutside={handleCalendarClose}

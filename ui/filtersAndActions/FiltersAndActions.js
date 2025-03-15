@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import classes from "./filters.module.css";
+import styles from "./filters.module.css";
 import DateInput from "../inputs/dateInput/DateInput";
 import Dropdown from "../inputs/dropdown/Dropdown";
+import CreateDropdown from "../inputs/createDropdown/CreateDropdown";
+import Paginations from "../paginations/Paginations";
 import {
   FaSearch,
   FaExchangeAlt,
@@ -10,7 +12,13 @@ import {
   FaFileImport,
 } from "react-icons/fa";
 
-const FiltersAndActions = () => {
+const FiltersAndActions = ({ 
+  totalRecords = 43, 
+  currentPage = 1, 
+  recordsPerPage = 10,
+  onPageChange,
+  onRecordsPerPageChange
+}) => {
   const [searchData, setSearchData] = useState({
     fromDate: null,
     toDate: null,
@@ -20,7 +28,6 @@ const FiltersAndActions = () => {
     order: "",
     search: "",
     status: null,
-    // selectedValue: null,
   });
 
   useEffect(() => {
@@ -29,7 +36,7 @@ const FiltersAndActions = () => {
 
   const statusOptions = ["All Status", "Active", "Pending", "Completed"];
 
-  const handleSearch = () => {
+  const handleSearchClick = () => {
     console.log(searchData);
   };
 
@@ -49,120 +56,137 @@ const FiltersAndActions = () => {
     setSearchData({ ...searchData, toDate: date });
   };
 
-  const handleConvert = () => {
+  const handleConvertClick = () => {
     console.log("Converting data...");
     // Implement convert functionality
   };
 
-  const handleSendEmail = () => {
+  const handleSendEmailClick = () => {
     console.log("Sending email...");
     // Implement email functionality
   };
 
-  const handleImportCSV = () => {
+  const handleImportCSVClick = () => {
     console.log("Importing CSV...");
     // Implement CSV import functionality
   };
 
   return (
-    <div className={classes.filters_and_actions}>
-      <DateInput
-        startDate={searchData.fromDate}
-        endDate={searchData.toDate}
-        onStartDateChange={handleStartDateChange}
-        onEndDateChange={handleEndDateChange}
-        required={true}
-        // label="Date Range"
-      />
-      <Dropdown
-        options={["Option 1", "Option 2", "Option 3"]}
-        placeholder="Select a partner"
-        onChange={(option) => handleDropdownChange('partner', option)}
-        value={searchData.partner}
-        // label="Select an option"
-        required={true}
-        id="partner-dropdown"
-      />
-      <Dropdown
-        options={["Option 1", "Option 2", "Option 3"]}
-        placeholder="Select a warehouse"
-        onChange={(option) => handleDropdownChange('warehouse', option)}
-        value={searchData.warehouse}
-        // label="Select an option"
-        required={true}
-        id="warehouse-dropdown"
-      />
-      <button className={classes.search_btn} onClick={handleSearch}>
-        Search
-      </button>
-      <Dropdown
-        options={["Option 1", "Option 2", "Option 3"]}
-        placeholder="Select a commodity"
-        onChange={(option) => handleDropdownChange('commodity', option)}
-        value={searchData.commodity}
-        // label="Select an option"
-        required={true}
-        id="commodity-dropdown"
-      />
-      <div className={classes.order_search}>  
-        <input
-          className={classes.order_search_input}
-          type="text"
-          placeholder="Order ID"
-          value={searchData.order}
-          onChange={(e) =>
-            setSearchData({ ...searchData, order: e.target.value })
-          }
+    <div className={styles.container}>
+      <div className={styles.filters}>
+        <DateInput
+          startDate={searchData.fromDate}
+          endDate={searchData.toDate}
+          onStartDateChange={handleStartDateChange}
+          onEndDateChange={handleEndDateChange}
+          required={true}
+          // label="Date Range"
         />
-        <FaSearch className={classes.search_icon} />
-      </div>
-
-      <Dropdown
-        options={statusOptions}
-        placeholder="Select Status"
-        onChange={(option) => handleDropdownChange('status', option)}
-        value={searchData.status}
-        // label="Status"
-        id="status-dropdown"
-      />
-      <div className={classes.search_input_container}>  
-        <input
-          className={classes.search_input}
-          type="text"
-          placeholder="Order ID"
-          value={searchData.order}
-          onChange={(e) =>
-            setSearchData({ ...searchData, order: e.target.value })
-          }
+        <Dropdown
+          options={["Option 1", "Option 2", "Option 3"]}
+          placeholder="Select a partner"
+          onChange={(option) => handleDropdownChange('partner', option)}
+          value={searchData.partner}
+          // label="Select an option"
+          required={true}
+          id="partner-dropdown"
         />
-        <FaSearch className={classes.search_icon} />
+        <Dropdown
+          options={["Option 1", "Option 2", "Option 3"]}
+          placeholder="Select a warehouse"
+          onChange={(option) => handleDropdownChange('warehouse', option)}
+          value={searchData.warehouse}
+          // label="Select an option"
+          required={true}
+          id="warehouse-dropdown"
+        />
+        <button className={styles.searchBtn} onClick={handleSearchClick}>
+          Search
+        </button>
+        <Dropdown
+          options={["Option 1", "Option 2", "Option 3"]}
+          placeholder="Select a commodity"
+          onChange={(option) => handleDropdownChange('commodity', option)}
+          value={searchData.commodity}
+          // label="Select an option"
+          required={true}
+          id="commodity-dropdown"
+        />
+        <div className={styles.orderSearch}>  
+          <input
+            className={styles.orderSearchInput}
+            type="text"
+            placeholder="Order ID"
+            value={searchData.order}
+            onChange={(e) =>
+              setSearchData({ ...searchData, order: e.target.value })
+            }
+          />
+          <FaSearch className={styles.searchIcon} />
+        </div>
+
+        <Dropdown
+          options={statusOptions}
+          placeholder="Select Status"
+          onChange={(option) => handleDropdownChange('status', option)}
+          value={searchData.status}
+          // label="Status"
+          id="status-dropdown"
+        />
+
+        <CreateDropdown />
+
+
       </div>
+      <div className={styles.actionsAndPaginations}>
+        <div className={styles.actions}>
+          <div className={styles.searchInputContainer}>  
+            <input
+              className={styles.searchInput}
+              type="text"
+              placeholder="General Search"
+              value={searchData.search}
+              onChange={(e) =>
+                setSearchData({ ...searchData, search: e.target.value })
+              }
+            />
+            <FaSearch className={styles.searchIcon} />
+          </div>
 
+          <button
+            className={`${styles.actionButton} ${styles.convert}`}
+            onClick={handleConvertClick}
+          >
+          <FaExchangeAlt style={{ marginRight: "8px" }} />
+          Convert DD
+        </button>
 
-      <button
-        className={`${classes.action_button} ${classes.convert}`}
-        onClick={handleConvert}
-      >
-        <FaExchangeAlt style={{ marginRight: "8px" }} />
-        Convert DD
-      </button>
+        <button
+          className={`${styles.actionButton} ${styles.sendEmail}`}
+          onClick={handleSendEmailClick}
+        >
+          <FaEnvelope style={{ marginRight: "8px" }} />
+          Send Email
+        </button>
 
-      <button
-        className={`${classes.action_button} ${classes.send_email}`}
-        onClick={handleSendEmail}
-      >
-        <FaEnvelope style={{ marginRight: "8px" }} />
-        Send Email
-      </button>
+        <button
+          className={`${styles.actionButton} ${styles.importCSV}`}
+          onClick={handleImportCSVClick}
+        >
+          <FaFileImport style={{ marginRight: "8px" }} />
+          Import CSV
+        </button>
+      </div>
+      <Paginations
+          totalRecords={totalRecords}
+          currentPage={currentPage}
+          recordsPerPage={recordsPerPage}
+          onPageChange={onPageChange}
+          onRecordsPerPageChange={onRecordsPerPageChange}
+        />
 
-      <button
-        className={`${classes.action_button} ${classes.import_csv}`}
-        onClick={handleImportCSV}
-      >
-        <FaFileImport style={{ marginRight: "8px" }} />
-        Import CSV
-      </button>
-    </div>
+      </div>
+      </div>
   );
 };
 
