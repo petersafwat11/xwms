@@ -9,7 +9,7 @@ const Login = () => {
         <div className={classes.brand_section}>
           <div className={classes.brand_image}>
             <Image
-              src="/images/tech-3.jpg" 
+              src="/images/ontagwms.jpg" 
               alt="Brand Image"
               fill
               priority

@@ -1,172 +1,63 @@
-"use client";
-import React, { forwardRef, useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "./dateInput.module.css";
-import { FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React, { useState, forwardRef } from 'react';
+import DatePicker from 'react-datepicker';
+import { FaCalendarAlt } from 'react-icons/fa';
+import 'react-datepicker/dist/react-datepicker.css';
+import styles from './dateInput.module.css';
 
+/**
+ * Reusable date input component
+ * @param {Object} props - Component properties
+ * @param {string} props.id - Input ID
+ * @param {string} props.name - Input name
+ * @param {string} props.label - Input label
+ * @param {Date|string} props.value - Selected date value
+ * @param {function} props.onChange - Change handler function
+ * @param {string} [props.placeholder] - Input placeholder
+ * @param {boolean} [props.required=false] - Is input required
+ * @param {string} [props.error] - Error message
+ * @param {Date} [props.minDate] - Minimum selectable date
+ * @param {Date} [props.maxDate] - Maximum selectable date
+ * @param {boolean} [props.disabled=false] - Is input disabled
+ * @returns {JSX.Element} - DateInput component
+ */
 const DateInput = ({
-  startDate,
-  endDate,
-  onStartDateChange,
-  onEndDateChange,
-  required = false,
+  id,
+  name,
   label,
+  value,
+  onChange,
+  placeholder = 'Select date',
+  required = false,
+  error,
+  minDate,
+  maxDate,
+  disabled = false,
 }) => {
-  // State for tracking current month and year in the calendar
-  const [calendarDate, setCalendarDate] = useState(new Date());
-  const inputRef = useRef(null);
-  const calendarContainerRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
+  // Convert string date to Date object if needed
+  const dateValue = value ? (typeof value === 'string' ? new Date(value) : value) : null;
   
-  // Create a ref for the portal container
-  const portalContainerRef = useRef(null);
-
-  // Initialize portal container
-  useEffect(() => {
-    // Create portal container if it doesn't exist
-    if (!portalContainerRef.current) {
-      const container = document.createElement('div');
-      container.className = styles.date_picker_portal;
-      document.body.appendChild(container);
-      portalContainerRef.current = container;
-    }
-    
-    // Cleanup function to remove the portal container
-    return () => {
-      if (portalContainerRef.current) {
-        document.body.removeChild(portalContainerRef.current);
-      }
-    };
-  }, []);
-
-  // Update calendar date when startDate changes
-  useEffect(() => {
-    if (startDate) {
-      setCalendarDate(new Date(startDate));
-    }
-  }, [startDate]);
-
-  // Add click outside listener to close the calendar
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Don't close if clicking inside the datepicker or the input container
-      if (
-        calendarContainerRef.current && 
-        !calendarContainerRef.current.contains(event.target) &&
-        inputRef.current && 
-        !inputRef.current.contains(event.target)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  // Generate array of months
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  // Generate array of years (5 years before and 5 years after current year)
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
-
-  // Format the date range for display
-  const formatDateRange = () => {
-    if (!startDate && !endDate) return "";
-
-    const formatDate = (date) => {
-      if (!date) return "";
-      return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-    };
-
-    if (startDate && endDate) {
-      return `${formatDate(startDate)} - ${formatDate(endDate)}`;
-    } else if (startDate) {
-      return formatDate(startDate);
-    } else {
-      return formatDate(endDate);
-    }
-  };
-
-  // Handle date range changes
-  const handleDateRangeChange = (dates) => {
-    const [start, end] = dates;
-
-    // Only update if values actually changed
-    if (start !== startDate) {
-      onStartDateChange(start);
-    }
-
-    if (end !== endDate) {
-      onEndDateChange(end);
-    }
-    
-    // Close calendar if both start and end dates are selected
-    if (start && end) {
-      setIsOpen(false);
-    }
-  };
-
-  // Toggle the calendar visibility
-  const toggleCalendar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Custom input component for date range field
+  // Custom date input to match our styling
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className={styles.date_range_input_container} ref={inputRef}>
-      {label && (
-        <label className={styles.date_label}>
-          {label} {required && <span className={styles.required}>*</span>}
-        </label>
-      )}
-      <div 
-        className={styles.date_input_wrapper} 
-        onClick={toggleCalendar}
-      >
-        <input
-          className={styles.date_input_field}
-          ref={ref}
-          value={formatDateRange()}
-          placeholder="Select date range"
-          readOnly
-          required={required}
-        />
-        <FaCalendarAlt className={styles.calendar_icon} />
-      </div>
+    <div className={styles.date_input_wrapper}>
+      <input
+        id={id}
+        className={`${styles.date_input_field} ${error ? styles.error : ''}`}
+        value={value}
+        onClick={onClick}
+        placeholder={placeholder}
+        readOnly
+        ref={ref}
+        disabled={disabled}
+      />
+      <FaCalendarAlt className={styles.calendar_icon} />
     </div>
   ));
-
-  // Add display name to fix lint error
-  CustomInput.displayName = "CustomDateRangeInput";
-
-  // Custom header component for the calendar
-  const renderCustomHeader = ({
+  
+  // Add display name to fix ESLint error
+  CustomInput.displayName = 'CustomDateInput';
+  
+  // Custom header for more control over the calendar UI
+  const CustomHeader = ({
     date,
     changeYear,
     changeMonth,
@@ -175,52 +66,50 @@ const DateInput = ({
     prevMonthButtonDisabled,
     nextMonthButtonDisabled,
   }) => {
+    const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - 50 + i);
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    
     return (
       <div className={styles.custom_header}>
         <button
-          className={styles.nav_button}
           onClick={decreaseMonth}
           disabled={prevMonthButtonDisabled}
-          aria-label="Previous month"
+          type="button"
+          className={styles.nav_button}
         >
-          <FaChevronLeft />
+          {'<'}
         </button>
-
+        
         <div className={styles.selects_container}>
           <select
-            className={styles.month_select}
             value={date.getMonth()}
-            onChange={(e) => {
-              const newMonth = parseInt(e.target.value, 10);
-              changeMonth(newMonth);
-
-              // Update our local state
-              const newDate = new Date(calendarDate);
-              newDate.setMonth(newMonth);
-              setCalendarDate(newDate);
-            }}
-            aria-label="Select month"
+            onChange={({ target: { value } }) => changeMonth(value)}
+            className={styles.month_select}
           >
-            {months.map((monthName, i) => (
-              <option key={monthName} value={i}>
-                {monthName}
+            {months.map((month, i) => (
+              <option key={month} value={i}>
+                {month}
               </option>
             ))}
           </select>
-
+          
           <select
-            className={styles.year_select}
             value={date.getFullYear()}
-            onChange={(e) => {
-              const newYear = parseInt(e.target.value, 10);
-              changeYear(newYear);
-
-              // Update our local state
-              const newDate = new Date(calendarDate);
-              newDate.setFullYear(newYear);
-              setCalendarDate(newDate);
-            }}
-            aria-label="Select year"
+            onChange={({ target: { value } }) => changeYear(value)}
+            className={styles.year_select}
           >
             {years.map((year) => (
               <option key={year} value={year}>
@@ -229,61 +118,55 @@ const DateInput = ({
             ))}
           </select>
         </div>
-
+        
         <button
-          className={styles.nav_button}
           onClick={increaseMonth}
           disabled={nextMonthButtonDisabled}
-          aria-label="Next month"
+          type="button"
+          className={styles.nav_button}
         >
-          <FaChevronRight />
+          {'>'}
         </button>
       </div>
     );
   };
-
-  // Handle month change in the calendar
-  const handleMonthChange = (date) => {
-    setCalendarDate(date);
+  
+  // Add display name to fix ESLint error
+  CustomHeader.displayName = 'CustomDateHeader';
+  
+  // Handle date change
+  const handleChange = (date) => {
+    onChange({
+      target: {
+        name,
+        value: date
+      }
+    });
   };
-
-  // Handle calendar close
-  const handleCalendarClose = () => {
-    setIsOpen(false);
-  };
-
+  
   return (
-    <>
-      <CustomInput />
-      
-      {isOpen && portalContainerRef.current && createPortal(
-        <div 
-          className={styles.calendar_container}
-          ref={calendarContainerRef}
-          style={{
-            position: 'absolute',
-            left: inputRef.current ? inputRef.current.getBoundingClientRect().left : 0,
-            top: inputRef.current ? inputRef.current.getBoundingClientRect().bottom + window.scrollY : 0,
-            zIndex: 9999,
-          }}
-        >
-          <DatePicker
-            selected={startDate}
-            onChange={handleDateRangeChange}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            inline
-            dateFormat="MMM d, yyyy"
-            calendarClassName={styles.calendar}
-            renderCustomHeader={renderCustomHeader}
-            onMonthChange={handleMonthChange}
-            onClickOutside={handleCalendarClose}
-          />
-        </div>,
-        portalContainerRef.current
+    <div className={styles.date_input_container}>
+      {label && (
+        <label htmlFor={id} className={styles.date_label}>
+          {label}
+          {required && <span className={styles.required}>*</span>}
+        </label>
       )}
-    </>
+      
+      <DatePicker
+        selected={dateValue}
+        onChange={handleChange}
+        customInput={<CustomInput />}
+        dateFormat="yyyy-MM-dd"
+        renderCustomHeader={CustomHeader}
+        minDate={minDate}
+        maxDate={maxDate}
+        popperClassName={styles.popper}
+        disabled={disabled}
+      />
+      
+      {error && <div className={styles.error_message}>{error}</div>}
+    </div>
   );
 };
 

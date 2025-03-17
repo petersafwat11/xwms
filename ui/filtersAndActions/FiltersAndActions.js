@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./filters.module.css";
-import DateInput from "../inputs/dateInput/DateInput";
+import DateInput from "../inputs/dateInput/RangeDateInput";
 import Dropdown from "../inputs/dropdown/Dropdown";
 import CreateDropdown from "../inputs/createDropdown/CreateDropdown";
 import Paginations from "../paginations/Paginations";

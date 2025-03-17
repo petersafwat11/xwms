@@ -13,7 +13,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FaSliders, FaClipboardList, FaQrcode } from "react-icons/fa6";
-
+import {usePathname} from 'next/navigation';
 const getIcon = (title) => {
   switch (title) {
     case "Dashboard":
@@ -36,6 +36,8 @@ const getIcon = (title) => {
 };
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isLogin = pathname === "/login";
   const [navbar, setNavbar] = useState(navDefault);
 
   const toggleNavbar = () => {
@@ -63,6 +65,7 @@ const Navbar = () => {
   };
 
   return (
+    isLogin ? null :
     <div
       className={`${classes.navbar} ${
         navbar.expanded ? classes.expanded : classes.collapsed

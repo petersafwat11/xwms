@@ -1,18 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./loginForm.module.css";
 import Link from "next/link";
 import { FiEye, FiEyeOff, FiUser, FiLock } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    user_id: "",
+    user_pwd: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // useEffect(() => {
+  //   // Check if there's a token in the cookies
+  //   const token = Cookies.get("jwt");
+  //   if (token) {
+  //     // If a token exists, check if there's a stored user
+  //     const storedUser = Cookies.get("user");
+  //     if (storedUser) {
+  //       // Redirect to dashboard or home page
+  //       router.push("/");
+  //     }
+  //   }
+  // }, [router]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,15 +55,9 @@ const LoginForm = () => {
     e.preventDefault();
 
     // Simple validation
-    if (!formData.email || !formData.password) {
+    if (!formData.user_id || !formData.user_pwd) {
       setError("Please fill in all fields");
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address");
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -52,17 +65,32 @@ const LoginForm = () => {
       setIsLoading(true);
       setError("");
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Make API call to backend
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/users/login`, formData);
 
-      // Here you would normally make an API call to authenticate
-      // For demo purposes, we'll just simulate success
-      console.log("Login successful", formData);
+      const data = await response.data;
 
-      // Redirect to dashboard or home page after successful login
-      // window.location.href = "/";
+      // Success - store token in cookie
+      const expirationDate = rememberMe
+        ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+        : new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 day
+
+      Cookies.set("jwt", data.token, { expires: expirationDate });
+      
+      // Store user data in localStorage
+      Cookies.set("user", JSON.stringify(data.data.user), { expires: expirationDate });
+
+      // Show success toast
+      toast.success("Login successful!");
+
+      // Redirect to dashboard
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     } catch (err) {
-      setError("Login failed. Please check your credentials and try again.");
+      const errorMessage = err.message || "Login failed. Please check your credentials and try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
       console.error("Login error:", err);
     } finally {
       setIsLoading(false);
@@ -71,6 +99,19 @@ const LoginForm = () => {
 
   return (
     <div className={classes.loginFormContainer}>
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      
       <div className={classes.formHeader}>
         <h1>Welcome Back</h1>
         <p>Sign in to continue to XWMS</p>
@@ -84,11 +125,11 @@ const LoginForm = () => {
             <FiUser />
           </div>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="user_id"
+            value={formData.user_id}
             onChange={handleChange}
-            placeholder="Email Address"
+            placeholder="Username or Email"
             className={classes.formInput}
             disabled={isLoading}
           />
@@ -100,8 +141,8 @@ const LoginForm = () => {
           </div>
           <input
             type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
+            name="user_pwd"
+            value={formData.user_pwd}
             onChange={handleChange}
             placeholder="Password"
             className={classes.formInput}

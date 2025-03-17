@@ -97,11 +97,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3.8rem;
-  padding: 0 1.6rem;
+  height: 3.42rem;
+  padding: 0 1.44rem;
   border: none;
-  border-radius: 0.4rem;
-  font-size: 1.4rem;
+  border-radius: 0.36rem;
+  font-size: 1.26rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -147,7 +147,7 @@
   gap: 1rem;
 }
 
-@media (max-width: 120rem) {
+@media (max-width: 1200px) {
   .filters {
     gap: 0.8rem;
   }
@@ -157,7 +157,7 @@
   }
 }
 
-@media (max-width: 99.2rem) {
+@media (max-width: 992px) {
   .searchInputContainer {
     max-width: 100%;
     flex-basis: 100%;
@@ -171,7 +171,7 @@
   }
 }
 
-@media (max-width: 76.8rem) {
+@media (max-width: 768px) {
   .filters {
     flex-direction: column;
     align-items: stretch;
@@ -187,20 +187,4 @@
   .actionButton {
     width: 100%;
   }
-}
-
-/* Global font improvements */
-:global(body) {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #2c3e50;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-}
-
-:global(button),
-:global(input),
-:global(select),
-:global(textarea) {
-  font-family: inherit;
 }
