@@ -9,8 +9,7 @@ const page = async ({ searchParams }) => {
   const user = JSON.parse(cookieStore.get('user')?.value)
   const { entity_code, company } = user
   // Extract page and rows from searchParams
-  const page = searchParams?.page || 1;
-  const rows = searchParams?.rows || 10;
+  const { page, rows } = await searchParams;
   // Pass them to fetchRecords for pagination
   const data = await fetchRecords('commodity');
   
@@ -18,6 +17,7 @@ const page = async ({ searchParams }) => {
     <div>
       <Wrapper 
         data={data} 
+        rowKey='commodity'
         requiredFields={CommodityrequiredFields} 
         sortableFields={CommoditySortableFields} 
       />

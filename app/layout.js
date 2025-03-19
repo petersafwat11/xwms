@@ -2,6 +2,7 @@
 import Header from "@/ui/header/Header";
 import "./globals.css";
 import Navbar from "@/ui/layout/navbar/Navbar";
+import { ToastContainer } from "react-toastify";
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],
@@ -21,6 +22,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
         <div className="app-container">
           <Header />
           <Navbar />

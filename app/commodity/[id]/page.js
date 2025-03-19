@@ -18,7 +18,7 @@ const page = async ({params}) => {
     }
     return (
         <div className="form_page">
-            <Form data={data} id={id} company={company} entity_code={entity_code} partner_codes={partner_codes}/>
+            <Form fetchedData={data} id={id} company={company} entity_code={entity_code} partner_codes={partner_codes}/>
         </div>
     )
 }

@@ -99,18 +99,6 @@ const LoginForm = () => {
 
   return (
     <div className={classes.loginFormContainer}>
-      <ToastContainer 
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       
       <div className={classes.formHeader}>
         <h1>Welcome Back</h1>

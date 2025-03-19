@@ -6,17 +6,17 @@ import { useRouter, usePathname } from 'next/navigation';
 import styles from './wrapper.module.css';
 import { FaTrash } from 'react-icons/fa';
 
-const Wrapper = ({ data, requiredFields, sortableFields }) => {
+const Wrapper = ({ data, requiredFields, sortableFields, rowKey }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedRows, setSelectedRows] = useState([]);
-  
+  console.log('data', data)
   // Get total records count from data
   const totalRecords = data?.data?.totalRecords || 0;
   
   // Handle row click to navigate to detail page
   const handleRowClick = (row) => {
-    router.push(`${pathname}/${row.partner_code}`);
+    router.push(`${pathname}/${row[rowKey]}`);
   };
   
   // Handle selection change

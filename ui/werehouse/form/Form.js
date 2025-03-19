@@ -7,11 +7,11 @@ import { handleFormSubmit, deleteRecord, validateForm } from '@/lib/formPagesHel
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from '../../commodity/form/form.module.css'
-
+import { toast } from 'react-toastify'
 const Form = ({id, company, entity_code, fetchedData}) => {
     const router = useRouter();
     const endpoint = 'warehouse';
-    
+    console.log("fetchedData", fetchedData);
     // Form data and state
     const [data, setData] = useState(fetchedData?fetchedData:{...warehouseInitialState, company: company, entity_code: entity_code});
     const [errors, setErrors] = useState({});
@@ -21,7 +21,7 @@ const Form = ({id, company, entity_code, fetchedData}) => {
     // Handle form field changes
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setData({ ...data, [name]: value });
+        setData({ ...data, [name]: value.toUpperCase() });
         
         // Clear field-specific error when user makes changes
         if (errors[name]) {
@@ -42,9 +42,10 @@ const Form = ({id, company, entity_code, fetchedData}) => {
         setIsSubmitting(true);
         try {
             await handleFormSubmit(endpoint, id, data, true);
+            toast.success(id === 'create' ? 'Warehouse created successfully!' : 'Warehouse updated successfully!');
             router.push(`/${endpoint}`);
         } catch (error) {
-            console.error('Error submitting form:', error);
+            toast.error(error.message || 'An error occurred');
             setErrors({
                 ...errors,
                 form: error.message || 'An error occurred while saving the data'
@@ -60,9 +61,10 @@ const Form = ({id, company, entity_code, fetchedData}) => {
             setIsDeleting(true);
             try {
                 await deleteRecord(endpoint, id);
+                toast.success('Warehouse deleted successfully!');
                 router.push(`/${endpoint}`);
             } catch (error) {
-                console.error('Error deleting record:', error);
+                toast.error(error.message || 'An error occurred');
                 setErrors({
                     ...errors,
                     form: error.message || 'An error occurred while deleting the record'
@@ -122,8 +124,8 @@ const Form = ({id, company, entity_code, fetchedData}) => {
                     name="warehouse_order"
                     value={data.warehouse_order}
                     onChange={handleChange}
-                    type="number"
-                    step="0.01" 
+                    type="text"
+                    // step="0.01" 
                     placeholder='Enter Warehouse Order'
                     error={errors.warehouse_order}
                 />

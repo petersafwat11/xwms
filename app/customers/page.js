@@ -4,7 +4,7 @@ import { fetchRecords } from '@/lib/tablePagesHelperFunctions'
 import { PartnerrequiredFields, PartnerSortableFields } from '@/utils/tablesHeader'
 import { cookies } from 'next/headers'
 
-const page = async ({ searchParams }) => {
+const page = async ({ searchParams }) => {  
   const cookieStore = await cookies()
   const user = JSON.parse(cookieStore.get('user')?.value)
   const { entity_code, company } = user
@@ -21,6 +21,7 @@ const page = async ({ searchParams }) => {
         data={data} 
         requiredFields={PartnerrequiredFields} 
         sortableFields={PartnerSortableFields} 
+        rowKey='partner_code'
       />
     </div>
   )

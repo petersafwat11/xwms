@@ -32,3 +32,5 @@
 
   export const CommoditySortableFields = [
   ];
+
+  export const WarehouseRequiredFields = ['company', 'entity_code', 'warehouse_code', 'warehouse_name', 'warehouse_address', 'warehouse_active']

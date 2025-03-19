@@ -3,16 +3,17 @@ import TextInput from '@/ui/inputs/textInput/TextInput'
 import Checkbox from '@/ui/inputs/checkbox/Checkbox'
 import Dropdown from '@/ui/inputs/dropdown/Dropdown'
 import FormActions from '@/ui/formActions/FormActions'
-import {  customerIntialState } from '@/utils/IntialState'
+import { customerIntialState } from '@/utils/IntialState'
 import { handleFormSubmit, deleteRecord, validateForm } from '@/lib/formPagesHelperFunctions'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './form.module.css'
+import { toast } from 'react-toastify';
 
 const Form = ({id, company, entity_code, fetchedData}) => {
     const router = useRouter();
     const endpoint = 'customer';
-    
+    console.log('fetchedData', fetchedData)
     // Form data and state
     const [data, setData] = useState(fetchedData?fetchedData:{...customerIntialState, company: company, entity_code: entity_code});
     const [errors, setErrors] = useState({});
@@ -23,7 +24,7 @@ const Form = ({id, company, entity_code, fetchedData}) => {
     // Handle form field changes
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setData({ ...data, [name]: value });
+        setData({ ...data, [name]: value.toUpperCase() });
         
         // Clear field-specific error when user makes changes
         if (errors[name]) {
@@ -54,9 +55,10 @@ const Form = ({id, company, entity_code, fetchedData}) => {
         setIsSubmitting(true);
         try {
             await handleFormSubmit(endpoint, id, data);
+            toast.success(id === 'create' ? 'Customer created successfully!' : 'Customer updated successfully!');
             router.push(`/${endpoint}`);
         } catch (error) {
-            console.error('Error submitting form:', error);
+            toast.error(error.message || 'An error occurred while saving the data');
             setErrors({
                 ...errors,
                 form: error.message || 'An error occurred while saving the data'
@@ -72,9 +74,10 @@ const Form = ({id, company, entity_code, fetchedData}) => {
             setIsDeleting(true);
             try {
                 await deleteRecord(endpoint, id);
+                toast.success('Customer deleted successfully!');
                 router.push(`/${endpoint}`);
             } catch (error) {
-                console.error('Error deleting record:', error);
+                toast.error(error.message || 'An error occurred while deleting the record');
                 setErrors({
                     ...errors,
                     form: error.message || 'An error occurred while deleting the record'
@@ -115,6 +118,28 @@ const Form = ({id, company, entity_code, fetchedData}) => {
             )}
  
             <div className={styles.form_grid}>
+                <div>
+                <TextInput
+                        label="Company"
+                        name="company"
+                        value={data.company}
+                        onChange={handleChange}
+                        required
+                        maxLength={20}
+                        error={errors.company}
+                        disabled
+                    />
+                    <TextInput
+                        label="Entity Code"
+                        name="entity_code"
+                        value={data.entity_code}
+                        onChange={handleChange}
+                        required
+                        maxLength={20}
+                        error={errors.entity_code}
+                        disabled
+                    />
+                </div>
                 {/* Basic Information Section */}
                 <div className={styles.form_section}>
                     <h2 className={styles.section_title}>Basic Information</h2>

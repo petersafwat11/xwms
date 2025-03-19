@@ -195,7 +195,7 @@ const Table = ({
               const rowId = getRowId(row);
               return (
                 <tr 
-                  key={rowId || index} 
+                  key={row?.create_time+index||row?.create_date+index||index} 
                   className={styles.tableRow}
                   onClick={() => onRowClick && onRowClick(row)}
                 >
