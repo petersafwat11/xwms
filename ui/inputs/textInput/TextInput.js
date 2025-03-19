@@ -15,6 +15,9 @@ const TextInput = ({
   error = null,
   autoFocus = false,
   className = '',
+  step = type === 'number' ? '0.01' : undefined, // Default step for number inputs
+  min,
+  max,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [charCount, setCharCount] = useState(value ? value.length : 0);
@@ -29,6 +32,23 @@ const TextInput = ({
   
   const handleBlur = () => {
     setIsFocused(false);
+    
+    // Format decimal numbers when losing focus (for better display)
+    if (type === 'number' && value !== '' && value !== null) {
+      const numValue = parseFloat(value);
+      if (!isNaN(numValue)) {
+        // Create synthetic event with formatted value
+        const formattedValue = numValue.toFixed(2);
+        const syntheticEvent = {
+          target: {
+            name,
+            value: formattedValue,
+            type: 'number'
+          }
+        };
+        onChange(syntheticEvent);
+      }
+    }
   };
   
   const handleChange = (e) => {
@@ -60,6 +80,9 @@ const TextInput = ({
         disabled={disabled}
         maxLength={maxLength}
         autoFocus={autoFocus}
+        step={step}
+        min={min}
+        max={max}
         className={`${styles.form_input} ${error ? styles.error : ''}`}
       />
       

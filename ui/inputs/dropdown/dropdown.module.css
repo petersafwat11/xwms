@@ -103,7 +103,7 @@
   top: calc(100% + 0px);
   left: 0;
   width: 100%;
-  max-height: 200px;
+  max-height: 250px;
   overflow-y: auto;
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -112,6 +112,53 @@
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Search Container */
+.search_container {
+  position: relative;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+.search_icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.search_input {
+  width: 100%;
+  padding: 8px 8px 8px 35px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #2c3e50;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.search_input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.search_input::placeholder {
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Options List Container */
+.options_list {
+  overflow-y: auto;
+  max-height: 180px;
 }
 
 /* Individual Option */
@@ -167,20 +214,24 @@
 }
 
 /* Scrollbar Styling */
-.dropdown_options::-webkit-scrollbar {
+.dropdown_options::-webkit-scrollbar,
+.options_list::-webkit-scrollbar {
   width: 6px;
 }
 
-.dropdown_options::-webkit-scrollbar-track {
+.dropdown_options::-webkit-scrollbar-track,
+.options_list::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
 }
 
-.dropdown_options::-webkit-scrollbar-thumb {
+.dropdown_options::-webkit-scrollbar-thumb,
+.options_list::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 3px;
 }
 
-.dropdown_options::-webkit-scrollbar-thumb:hover {
+.dropdown_options::-webkit-scrollbar-thumb:hover,
+.options_list::-webkit-scrollbar-thumb:hover {
   background: #4a90e2;
 }

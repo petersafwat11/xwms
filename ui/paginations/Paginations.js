@@ -2,16 +2,28 @@
 import React, { useState, useEffect } from 'react';
 import { FaAngleLeft, FaAngleRight, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
 import styles from './paginations.module.css';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 const Paginations = ({ 
   totalRecords = 0, 
   currentPage = 1, 
-  recordsPerPage = 10,
-  onPageChange,
-  onRecordsPerPageChange
+  recordsPerPage = 10
 }) => {
-  const [activePage, setActivePage] = useState(currentPage);
-  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  
+  // Initialize active page from URL params or default
+  const [activePage, setActivePage] = useState(
+    parseInt(searchParams.get('page') || currentPage, 10)
+  );
+  
+  // Initialize records per page from URL params or default
+  const [activeRecordsPerPage, setActiveRecordsPerPage] = useState(
+    parseInt(searchParams.get('rows') || recordsPerPage, 10)
+  );
+  
+  const totalPages = Math.ceil(totalRecords / activeRecordsPerPage);
   
   // Generate page numbers to display
   const getDisplayedPages = () => {
@@ -43,21 +55,35 @@ const Paginations = ({
     return pageNumbers;
   };
 
-  // Update active page when current page prop changes
+  // Update URL with new parameters
+  const updateUrlParams = (page, rows) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', page);
+    params.set('rows', rows);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  // Update active page when URL changes
   useEffect(() => {
-    setActivePage(currentPage);
-  }, [currentPage]);
+    const page = parseInt(searchParams.get('page') || currentPage, 10);
+    const rows = parseInt(searchParams.get('rows') || recordsPerPage, 10);
+    
+    setActivePage(page);
+    setActiveRecordsPerPage(rows);
+  }, [searchParams, currentPage, recordsPerPage]);
 
   const handlePageChange = (page) => {
     if (page < 1 || page > totalPages || page === activePage) return;
     
     setActivePage(page);
-    onPageChange && onPageChange(page);
+    updateUrlParams(page, activeRecordsPerPage);
   };
 
   const handleRecordsPerPageChange = (e) => {
     const value = parseInt(e.target.value, 10);
-    onRecordsPerPageChange && onRecordsPerPageChange(value);
+    setActiveRecordsPerPage(value);
+    // Reset to page 1 when changing records per page
+    updateUrlParams(1, value);
   };
 
   // Memoize displayed pages to avoid recalculation on every render
@@ -70,14 +96,14 @@ const Paginations = ({
         <div className={styles.records_selector}>
           <span>Show</span>
           <select 
-            value={recordsPerPage}
+            value={activeRecordsPerPage}
             onChange={handleRecordsPerPageChange}
             className={styles.size_select}
           >
-            <option value="10">100</option>
-            <option value="25">200</option>
-            <option value="50">500</option>
-            <option value="100">1000</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
           </select>
           <span>per page</span>
         </div>

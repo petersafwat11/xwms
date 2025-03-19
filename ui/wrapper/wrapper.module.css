@@ -1,0 +1,164 @@
+.wrapper {
+  width: 100%;
+  padding: 2rem;
+  background-color: #f9fafc;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.bulkActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectedCount {
+  font-size: 1.4rem;
+  color: #666;
+  margin-right: 0.5rem;
+}
+
+.bulkActionButton {
+  padding: 0.8rem 1.6rem;
+  background-color: #f0f2f5;
+  border: none;
+  border-radius: 0.4rem;
+  color: #444;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bulkActionButton:hover {
+  background-color: #e0e2e5;
+}
+
+.bulkDeleteButton {
+  background-color: #fff0f0;
+  color: #e53935;
+}
+
+.bulkDeleteButton:hover {
+  background-color: #ffdddd;
+}
+
+.tableWrapper {
+  background-color: #fff;
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+/* Status styling */
+.statusWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.statusDot {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  margin-right: 0.8rem;
+}
+
+.active {
+  background-color: #4caf50;
+}
+
+.inactive {
+  background-color: #f44336;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status_active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status_pending {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.status_inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status_new {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+/* Action buttons */
+.actionButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: #f5f7fa;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.actionButton:hover {
+  background-color: #e0e2e5;
+}
+
+.viewButton:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.editButton:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.deleteButton:hover {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* Responsive styles */
+@media (max-width: 76.8rem) {
+  .wrapper {
+    padding: 1.6rem 1rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .bulkActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

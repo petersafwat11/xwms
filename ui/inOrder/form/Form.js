@@ -1,20 +1,19 @@
 "use client"
 import TextInput from '@/ui/inputs/textInput/TextInput'
+import Checkbox from '@/ui/inputs/checkbox/Checkbox'
 import FormActions from '@/ui/formActions/FormActions'
-import { commodityInitialState } from '@/utils/IntialState'
+import {  warehouseInitialState } from '@/utils/IntialState'
 import { handleFormSubmit, deleteRecord, validateForm } from '@/lib/formPagesHelperFunctions'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import styles from './form.module.css'
-import Dropdown from '@/ui/inputs/dropdown/Dropdown'
-const Form = ({id, company, entity_code, partner_codes, fetchedData}) => {
-    // const [user, setUser] = useState(null);
-    console.log(partner_codes?.data)
+import styles from '../../commodity/form/form.module.css'
+
+const Form = ({id}) => {
     const router = useRouter();
-    const endpoint = 'commodity';
+    const endpoint = 'warehouse';
     
     // Form data and state
-    const [data, setData] = useState(fetchedData?fetchedData:{...commodityInitialState, company: company, entity_code: entity_code});
+    const [data, setData] = useState(warehouseInitialState);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -32,7 +31,7 @@ const Form = ({id, company, entity_code, partner_codes, fetchedData}) => {
     
     // Handle form submission
     const handleSubmit = async () => {
-        if (!validateForm(data)) {
+        if (!validateForm(data, ['warehouse_code', 'warehouse_name', 'warehouse_address', 'warehouse_active'])) {
             setErrors({
                 ...errors,
                 form: 'Please fill all the required fields'
@@ -83,7 +82,7 @@ const Form = ({id, company, entity_code, partner_codes, fetchedData}) => {
         <div className={styles.form}>
             <div className={styles.form_header}>
                 <h1 className={styles.form_title}>
-                    {isCreateMode ? 'Create New Commodity' : 'Edit Commodity'}
+                    {isCreateMode ? 'Create New Warehouse' : 'Edit Warehouse'}
                 </h1>
             </div>
             
@@ -92,47 +91,8 @@ const Form = ({id, company, entity_code, partner_codes, fetchedData}) => {
                     {errors.form}
                 </div>
             )}
-            
+ 
             <div className={styles.form_grid}>
-                <TextInput
-                    label="Company"
-                    name="company"
-                    value={data.company}
-                    onChange={handleChange}
-                    maxLength={20}
-                    required
-                    error={errors.company}
-                    disabled
-                />
-                
-                <TextInput
-                    label="Entity Code"
-                    name="entity_code"
-                    value={data.entity_code}
-                    onChange={handleChange}
-                    maxLength={20}
-                    required
-                    error={errors.entity_code}
-                    disabled
-                />
-                <Dropdown
-                    label="Partner Code"
-                    options={partner_codes?.data || []}
-                    value={data.partner_code}
-                    onChange={(value) => handleDropdownChange('partner_code', value)}
-                    required
-                    error={errors.partner_code}
-                />
-                
-                <TextInput
-                    label="Commodity"
-                    name="commodity"
-                    value={data.commodity}
-                    onChange={handleChange}
-                    maxLength={30}
-                    required
-                    error={errors.commodity}
-                />
             </div>
             
             <FormActions

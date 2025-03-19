@@ -13,11 +13,7 @@ import {
 } from "react-icons/fa";
 
 const FiltersAndActions = ({ 
-  totalRecords = 43, 
-  currentPage = 1, 
-  recordsPerPage = 10,
-  onPageChange,
-  onRecordsPerPageChange
+  totalRecords = 43
 }) => {
   const [searchData, setSearchData] = useState({
     fromDate: null,
@@ -177,13 +173,9 @@ const FiltersAndActions = ({
           Import CSV
         </button>
       </div>
-      <Paginations
-          totalRecords={totalRecords}
-          currentPage={currentPage}
-          recordsPerPage={recordsPerPage}
-          onPageChange={onPageChange}
-          onRecordsPerPageChange={onRecordsPerPageChange}
-        />
+      <Paginations 
+        totalRecords={totalRecords}
+      />
 
       </div>
       </div>

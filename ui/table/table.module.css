@@ -4,6 +4,7 @@
   border-radius: 0.8rem; /* 8px */
   box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.08); /* 0 2px 10px */
   background: white;
+  margin: 1.6rem 0; /* 16px 0 */
 }
 
 .table {
@@ -24,6 +25,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  transition: background-color 0.2s;
 }
 
 .headerContent {
@@ -56,15 +58,26 @@
   padding: 1.2rem 1.6rem; /* 12px 16px */
   border-bottom: 0.1rem solid #eaedf0; /* 1px */
   vertical-align: middle;
+  font-size: 1.3rem; /* 13px */
+  color: #444;
+  line-height: 1.5;
+  max-width: 24rem; /* 240px */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tableRow {
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.1s;
   cursor: pointer;
 }
 
 .tableRow:hover {
   background-color: #f8f9fb;
+}
+
+.tableRow:active {
+  transform: translateY(0.1rem); /* 1px */
 }
 
 .tableRow:last-child .tableCell {
@@ -104,6 +117,87 @@
   font-style: italic;
 }
 
+/* Status indicator styles */
+.statusIndicator {
+  display: inline-block;
+  width: 0.8rem; /* 8px */
+  height: 0.8rem; /* 8px */
+  border-radius: 50%;
+  margin-right: 0.8rem; /* 8px */
+}
+
+.statusActive {
+  background-color: #4caf50; /* Green */
+}
+
+.statusInactive {
+  background-color: #f44336; /* Red */
+}
+
+.statusPending {
+  background-color: #ff9800; /* Orange */
+}
+
+/* Status wrapper for active/inactive indicators */
+.statusWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* 6px */
+}
+
+.statusDot {
+  display: inline-block;
+  width: 0.8rem; /* 8px */
+  height: 0.8rem; /* 8px */
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.active {
+  background-color: #4caf50; /* Green */
+}
+
+.inactive {
+  background-color: #f44336; /* Red */
+}
+
+/* Status badge styles */
+.statusBadge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem; /* 4px 8px */
+  border-radius: 1rem; /* 10px */
+  font-size: 1.2rem; /* 12px */
+  font-weight: 500;
+  text-transform: capitalize;
+  background-color: #eaedf0;
+  color: #666;
+}
+
+.status_active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status_inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status_pending {
+  background-color: #fff8e1;
+  color: #ef6c00;
+}
+
+.status_completed {
+  background-color: #e0f7fa;
+  color: #00838f;
+}
+
+.status_processing {
+  background-color: #e8eaf6;
+  color: #3f51b5;
+}
+
 /* Responsive styles */
 @media (max-width: 76.8rem) { /* 768px */
   .tableContainer {
@@ -113,5 +207,9 @@
   
   .headerCell, .tableCell, .checkboxCell, .actionsCell {
     padding: 0.8rem 1.2rem; /* 8px 12px */
+  }
+  
+  .tableCell {
+    max-width: 16rem; /* 160px */
   }
 }
