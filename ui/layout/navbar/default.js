@@ -30,8 +30,8 @@ const navDefault = {
           path: "/pack",
         },
         {
-          title: "Cycle Count",
-          path: "/cycle-count",
+          title: "PutAway",
+          path: "/putaway",
         },
         {
           title: "Stock Take",

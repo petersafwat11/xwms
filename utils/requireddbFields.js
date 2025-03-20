@@ -1,0 +1,103 @@
+export const packRequiredDbFields = ["company",
+"entity_code",
+// "pack_id",
+"warehouse_code",
+"order_ref",
+"pack_location",
+"source_type",
+"source_value",
+"target_type",
+"target_value",
+"sku_code",
+"sku_desc",
+"sku_qty",
+"choose_sel",
+"post_status"
+]
+export const pickOptionalDbFields = [  "company",
+    "entity_code",
+    // "pick_id",
+    "warehouse_code",
+    "order_ref",
+    "pick_ref",
+    "pick_location",
+    "sku_code",
+    "sku_desc",
+    "sku_qty",
+    "choose_sel",
+    "post_status"
+  ]
+  export const transferRequiredDbFields = [
+    "company",
+    "entity_code",
+    // "transfer_id",
+    "from_warehouse",
+    "to_warehouse",
+    "from_location",
+    "source_type",
+    "source_value",
+    "to_location",
+    "target_type",
+    "target_value",
+    "sku_code",
+    "sku_qty",
+    "choose_sel",
+    "post_status"
+  ]
+  export const receivingRequiredDbFields = [
+    "company",
+    "entity_code",
+    // "rec_id",
+    "warehouse_code",
+    "commodity",
+    "order_ref",
+    "sku_code",
+    "sku_qty",
+    "sku_uom",      
+    "choose_sel",
+    "post_status",
+    "sku_desc"
+]
+export const sortingRequiredDbFields = [  
+    "company",
+    "entity_code",
+    // "sort_id",
+    "warehouse_code",
+    "commodity",
+    "order_ref",
+    "sort_type",
+    "sku_code",
+    "sku_qty",
+    "choose_sel",
+    "post_status"
+  ]
+export const putawayRequiredDbFields = [  
+    "company",
+    "entity_code",
+    // "put_id",
+    "warehouse_code",
+    "order_ref",
+    "from_location",
+    "source_type",
+    "source_value",
+    "to_location",
+    "target_type",
+    "target_value",
+    "sku_code",
+    "sku_qty",
+    "choose_sel",
+    "post_status"
+  ]
+  export const stockTakeRequiredDbFields = [  
+    "company",
+    "entity_code",
+    // "stock_take_id",
+    "warehouse_code",
+    "location_code",
+    "sku_code",
+    "sku_desc",
+    "sku_qty",
+    "data_origin",
+    "choose_sel",
+    "post_status"
+    ]

@@ -67,7 +67,7 @@ const Form = ({id, company, entity_code, fetchedData}) => {
             setIsSubmitting(false);
         }
     };
-    
+
     // Handle record deletion
     const handleDelete = async () => {
         if (window.confirm('Are you sure you want to delete this record?')) {

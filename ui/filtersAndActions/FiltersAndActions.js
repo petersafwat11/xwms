@@ -11,6 +11,7 @@ import {
   FaEnvelope,
   FaFileImport,
 } from "react-icons/fa";
+import ImportCsv from "../importCsv/ImportCsv";
 
 const FiltersAndActions = ({ 
   totalRecords = 43
@@ -25,10 +26,6 @@ const FiltersAndActions = ({
     search: "",
     status: null,
   });
-
-  useEffect(() => {
-    console.log("searchData", searchData);
-  }, [searchData]);
 
   const statusOptions = ["All Status", "Active", "Pending", "Completed"];
 
@@ -69,6 +66,23 @@ const FiltersAndActions = ({
 
   return (
     <div className={styles.container}>
+
+    {/* <ImportCsv
+        title="Import Customers"
+        orderRefOptions={[
+           'Reference 1',
+           'Reference 2',
+           'Reference 3'
+        ]}
+        requiredKeys={['name', 'email']} // Required columns
+        allKeys={['name', 'email', 'phone', 'address']} // All allowed columns
+        onImport={async (data, orderRef) => {
+            // Handle the import process
+            // data is the array of records to import
+            // orderRef is the selected order reference
+        }}
+    /> */}
+
       <div className={styles.filters}>
         <DateInput
           startDate={searchData.fromDate}

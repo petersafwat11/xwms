@@ -19,19 +19,6 @@ export const warehouseInitialState = {
     warehouse_email: '',
     warehouse_active: '',
 }
-// Columns:
-//   - company (character varying, max length: 20) NOT NULL      
-//   - entity_code (character varying, max length: 20) NOT NULL  
-//   - warehouse_order (integer) NULL
-//   - warehouse_code (character varying, max length: 20) NOT NULL
-//   - warehouse_name (character varying, max length: 100) NOT NULL
-//   - warehouse_address (character varying, max length: 300) NOT NULL
-//   - warehouse_country (character varying, max length: 50) NULL
-//   - warehouse_postcode (character varying, max length: 10) NULL
-//   - warehouse_telephone (character varying, max length: 20) NULL
-//   - warehouse_contact (character varying, max length: 50) NULL
-//   - warehouse_email (character varying, max length: 200) NULL 
-//   - warehouse_active (character, max length: 1) NOT NULL      
 
 export const customerIntialState={
     partner_code: "",
@@ -118,95 +105,220 @@ export const customerIntialState={
     company: "",
     entity_code: ""
 };
+// both have time
+export const inventoryDetailIntialState={
+    company: "",
+    entity_code: "",
+    warehouse_code: "",
+    order_ref: "",
+    row_ref: "",
+    choose_sel: "",
+    sku_category: "",
+    location_code: "",
+    sku_code: "",
+    sku_desc: "",
+    sku_uom: "",
+    sku_qty: 0,
+    sku_weight: 0,
+    sku_cbm: 0,
+    container_no: "",
+    pallet_no: "",
+    carton_no: "",
+    mfg_date: "",
+    expiry_date: "",
+    reference1: "",
+    reference2: "",
+    reference3: "",
+    reference4: "",
+    damage_status: "",
+    damage_code: "",
+    item_comments: "",
+    post_status: "",
+    post_date: "",
+    post_time: "",
+    post_user: "",
+    post_ref: "",
+    batch_no: "",
+    actual_date: new Date().toISOString().split('T')[0], // Default to today's date
+    put_ref: "",
+    put_done: "",
+    pick_ref: "",
+    pick_done: "",
+    block_status: "",
+    block_date: "",
+    block_user: "",
+    used_in_release: "",
+    itemsign: 0
+};
 
+export const inventoryHeaderIntialState={
+  company: "",
+  entity_code: "",
+  partner_code: "",
+  commodity: "",
+  order_ref: "",
+  order_date: '',
+  order_desc: "",
+  order_type: "",
+  order_mode: "",
+  goods_type: "",
+  order_status: "",
+  status_date: '',
+  po_number: "",
+  invoice_no: "",
+  master_ref: "",
+  booking_ref: "",
+  partner_name: "",
+  tracking_ref: ""
+};
+// don't have update date and user 
 
-// Table: partner
-// Columns:
-//   - partner_code (character varying, max length: 20) NOT NULL 
-//   - partner_active (character, max length: 1) NOT NULL        
-//   - partner_ref (character varying, max length: 50) NOT NULL  
-//   - partner_name (character varying, max length: 150) NOT NULL
-//   - partner_address1 (character varying, max length: 100) NOT NULL
-//   - partner_address2 (character varying, max length: 100) NULL
-//   - partner_address3 (character varying, max length: 100) NULL
-//   - partner_city (character varying, max length: 20) NULL     
-//   - partner_state (character varying, max length: 20) NULL    
-//   - partner_country (character varying, max length: 100) NULL 
-//   - partner_country_iso (character, max length: 3) NULL       
-//   - partner_postcode (character varying, max length: 10) NULL 
-//   - partner_tel_1 (character varying, max length: 30) NULL    
-//   - partner_tel_2 (character varying, max length: 30) NULL    
-//   - partner_tel_3 (character varying, max length: 30) NULL    
-//   - partner_fax_1 (character varying, max length: 30) NULL    
-//   - partner_telex (character varying, max length: 30) NULL    
-//   - partner_contact_1 (character varying, max length: 50) NULL
-//   - partner_contact_2 (character varying, max length: 50) NULL
-//   - partner_sales_person (character varying, max length: 10) NOT NULL
-//   - partner_cs_person (character varying, max length: 10) NULL
-//   - partner_email_1 (character varying, max length: 50) NULL  
-//   - partner_website (character varying, max length: 50) NULL  
-//   - partner_gst_reg (character varying, max length: 30) NULL  
-//   - create_user (character varying, max length: 10) NOT NULL  
-//   - create_date (date) NOT NULL
-//   - update_user (character varying, max length: 10) NOT NULL  
-//   - update_date (date) NOT NULL
-//   - partner_group (character, max length: 1) NULL
-//   - partner_terms (character varying, max length: 20) NULL    
-//   - partner_currency (character, max length: 3) NULL
-//   - sales_type (character, max length: 1) NULL
-//   - partner_name_zh (character varying, max length: 100) NULL 
-//   - partner_address_zh (character varying, max length: 500) NULL
-//   - khmer_name (character varying, max length: 100) NULL      
-//   - khmer_address (character varying, max length: 300) NULL   
-//   - partner_crno (character varying, max length: 20) NULL     
-//   - partner_name_khmer (character varying, max length: 100) NULL
-//   - partner_address_khmer (character varying, max length: 500) NULL
-//   - partner_name_vn (character varying, max length: 100) NULL 
-//   - partner_address_vn (character varying, max length: 500) NULL
-//   - partner_name_th (character varying, max length: 100) NULL 
-//   - partner_address_th (character varying, max length: 500) NULL
-//   - partner_name_mm (character varying, max length: 100) NULL 
-//   - partner_address_mm (character varying, max length: 500) NULL
-//   - partner_name_tw (character varying, max length: 100) NULL 
-//   - partner_address_tw (character varying, max length: 500) NULL
-//   - partner_iso_code (character varying, max length: 20) NULL 
-//   - partner_iata_code (character varying, max length: 20) NULL
-//   - partner_iata_account (character varying, max length: 20) NULL
-//   - partner_scac_code (character varying, max length: 20) NULL
-//   - partner_whatsapp (character varying, max length: 20) NULL 
-//   - partner_wechat (character varying, max length: 20) NULL   
-//   - partner_facebook (character varying, max length: 200) NULL
-//   - partner_line_id (character varying, max length: 20) NULL  
-//   - partner_instagram (character varying, max length: 100) NULL
-//   - partner_class (character, max length: 1) NOT NULL
-//   - wca_no (character varying, max length: 20) NULL
-//   - lognet_no (character varying, max length: 20) NULL        
-//   - gaa_no (character varying, max length: 20) NULL
-//   - egln_no (character varying, max length: 20) NULL
-//   - partner_uen (character varying, max length: 20) NULL      
-//   - partner_iec_code (character varying, max length: 20) NULL 
-//   - partner_usci_code (character varying, max length: 20) NULL
-//   - partner_raca_code (character varying, max length: 20) NULL
-//   - iec_code (character varying, max length: 20) NULL
-//   - usci_code (character varying, max length: 20) NULL        
-//   - raca_code (character varying, max length: 20) NULL        
-//   - partner_status (character, max length: 1) NOT NULL        
-//   - partner_network (character varying, max length: 200) NULL 
-//   - partner_category (character, max length: 3) NULL
-//   - partner_logo (character varying, max length: 200) NULL    
-//   - company (character varying, max length: 20) NOT NULL      
-//   - entity_code (character varying, max length: 20) NOT NULL  
-//   - partner_type (character, max length: 1) NOT NULL
-//   - partner_roles (character varying, max length: 200) NULL   
-//   - partner_term (smallint) NOT NULL
-//   - choose_sel (character, max length: 1) NOT NULL
-//   - partner_source (character varying, max length: 30) NOT NULL
-//   - peppol_id (character varying, max length: 30) NULL        
-//   - api_user (character varying, max length: 20) NULL
-//   - api_password (character varying, max length: 20) NULL     
-//   - api_key (character varying, max length: 100) NULL
-//   - partner_label_file (character varying, max length: 300) NULL
-//   - role_wms (character, max length: 1) NOT NULL
-//   - role_lastmile (character, max length: 1) NOT NULL
-//   - role_contractor (character, max length: 1) NOT NULL       
+export const wmsSortingIntialState={
+  company: "",
+  entity_code: "",
+//   sort_id: 0,
+  warehouse_code: "",
+  commodity: "",
+  order_ref: "",
+  sort_type: "",
+  sku_code: "",
+  sku_qty: 0,
+  reference1: "",
+  image_link1: "",
+  image_link2: "",
+  image_link3: "",
+  choose_sel: "",
+  post_status: ""
+};
+export const receivingIntialState={
+  company: "",
+  entity_code: "",
+//   rec_id: 0,
+  warehouse_code: "",
+  commodity: "",
+  order_ref: "",
+  container_no: "",
+  pallet_no: "",
+  carton_no: "",
+  sku_code: "",
+  sku_qty: 0,
+  sku_uom: "",
+  reference1: "",
+  image_link1: "",
+  image_link2: "",
+  image_link3: "",
+  choose_sel: "",
+  post_status: "",
+  sku_desc:""
+};
+export const wmsTransferIntialState={
+  company: "",
+  entity_code: "",
+//   transfer_id: 0,
+  from_warehouse: "",
+  to_warehouse: "",
+  from_location: "",
+  source_type: "",
+  source_value: "",
+  to_location: "",
+  target_type: "",
+  target_value: "",
+  sku_code: "",
+  sku_qty: 0,
+  reference1: "",
+  image_link1: "",
+  image_link2: "",
+  image_link3: "",
+  choose_sel: "",
+  post_status: ""
+};
+export const wmsPickIntialState={
+  company: "",
+  entity_code: "",
+//   pick_id: 0,
+  warehouse_code: "",
+  order_ref: "",
+  pick_ref: "",
+  pick_location: "",
+  sku_code: "",
+  sku_qty: 0,
+  reference1: "",
+  image_link1: "",
+  image_link2: "",
+  image_link3: "",
+  choose_sel: "",
+  post_status: ""
+};
+export const wmsPackIntialState={
+  company: "",
+  entity_code: "",
+//   pack_id: 0,
+  warehouse_code: "",
+  order_ref: "",
+  pack_location: "",
+  source_type: "",
+  source_value: "",
+  target_type: "",
+  target_value: "",
+  sku_code: "",
+  sku_desc: "",
+  sku_qty: 0,
+  reference1: "",
+  image_link1: "",
+  image_link2: "",
+  image_link3: "",
+  choose_sel: "",
+  post_status: ""
+};
+export const wmsStockTakeIntialState={
+  company: "",
+  entity_code: "",
+//   stock_take_id: 0,
+  warehouse_code: "",
+  location_code: "",
+  sku_code: "",
+  sku_desc: "",
+  sku_qty:"",
+  data_origin: "",
+  choose_sel: "",
+  post_status: "",
+  image_link1: "",
+  image_link2: "",
+  image_link3: "",
+  commodity: ""
+};
+export const wmsPutAwayIntialState={
+    company: "",
+    entity_code: "",
+  //   put_id: 0,
+    warehouse_code: "",
+    order_ref: "",
+    from_location: "",
+    source_type: "",
+    source_value: "",
+    to_location: "",
+    target_type: "",
+    target_value: "",
+    sku_code: "",
+    sku_qty: 0,
+    reference1: "",
+    choose_sel: "",
+    post_status: "",
+    image_link1: "",
+    image_link2: "",
+    image_link3: ""
+  };
+  
+  
+export const xwmsFeedbackIntialState={
+  company: "",
+  entity_code: "",
+//   feedback_id: 0,
+  user_id: "",
+  user_email: "",
+  feedback_date: "",
+  feedback_subject: "",
+  feedback_description: "",
+  create_date: ""
+};
 
